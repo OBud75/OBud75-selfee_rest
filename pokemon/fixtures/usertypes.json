@@ -1,0 +1,18 @@
+[
+    {
+        "model": "pokemon.usertype",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "type_group": 1
+        }
+    },
+    {
+        "model": "pokemon.usertype",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "type_group": 2
+        }
+    }
+]

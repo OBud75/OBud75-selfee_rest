@@ -1,0 +1,26 @@
+[
+    {
+        "model": "pokemon.pokemontype",
+        "pk": 1,
+        "fields": {
+            "pokemon": 1,
+            "type_group": 3
+        }
+    },
+    {
+        "model": "pokemon.pokemontype",
+        "pk": 2,
+        "fields": {
+            "pokemon": 2,
+            "type_group": 1
+        }
+    },
+    {
+        "model": "pokemon.pokemontype",
+        "pk": 3,
+        "fields": {
+            "pokemon": 3,
+            "type_group": 2
+        }
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "model": "registration.user",
+        "pk": 1,
+        "fields": {
+            "username": "ash",
+            "password": "pbkdf2_sha256$260000$dummy$dummyhash",
+            "is_active": true
+        }
+    }
+]

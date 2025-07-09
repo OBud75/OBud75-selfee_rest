@@ -1,0 +1,23 @@
+[
+    {
+        "model": "pokemon.typegroup",
+        "pk": 1,
+        "fields": {
+            "name": "fire"
+        }
+    },
+    {
+        "model": "pokemon.typegroup",
+        "pk": 2,
+        "fields": {
+            "name": "water"
+        }
+    },
+    {
+        "model": "pokemon.typegroup",
+        "pk": 3,
+        "fields": {
+            "name": "grass"
+        }
+    }
+]

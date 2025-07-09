@@ -1,0 +1,26 @@
+[
+    {
+        "model": "pokemon.pokemon",
+        "pk": 1,
+        "fields": {
+            "number": 1,
+            "name": "bulbasaur"
+        }
+    },
+    {
+        "model": "pokemon.pokemon",
+        "pk": 2,
+        "fields": {
+            "number": 4,
+            "name": "charmander"
+        }
+    },
+    {
+        "model": "pokemon.pokemon",
+        "pk": 3,
+        "fields": {
+            "number": 7,
+            "name": "squirtle"
+        }
+    }
+]
