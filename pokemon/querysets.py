@@ -11,12 +11,13 @@ class PokemonQuerySet(QuerySet):
         return self.filter(lookup)
 
     def for_user(self, user):
+        """As a fist optimiation solution, we use JOIN + DISTINCT.
+        If real performance issues arise, other optimiations should be
+        considered, such as using IN (Subquery), annotate + exists or
+        annotate + (array/json) aggregate (SGBD specific solutions)."""
         return self._for_user(user=user)._prefetch_user_types(user=user)
 
     def _for_user(self, user):
-        """As a fist optimiation solution, we use JOIN + DISTINCT.
-        If real performance issues arise, other optimiations should be
-        considered, such as using IN (Subquery) or annotate + exists."""
         return self.filter(
             pokemontype__type_group__usertype__user=user
         ).distinct()
