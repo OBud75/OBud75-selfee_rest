@@ -36,5 +36,9 @@ class PokemonWithTypesSerialier(ModelSerializer):
 
     def get_types(self, obj):
         return [
-            pokemon_type.type_group.name for
-            pokemon_type in obj.pokemontype_set.all()]
+            pokemon_type.type_group.name
+            for pokemon_type in getattr(
+                obj, "user_filtered_types",
+                obj.pokemontype_set.all()
+            )
+        ]

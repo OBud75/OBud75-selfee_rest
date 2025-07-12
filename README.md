@@ -17,4 +17,4 @@ echo '{"debug": true}' > .env.json
 
 
 ## Launch tests
-./manage.py test
+./manage.py test --keepdb

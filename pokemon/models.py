@@ -6,6 +6,9 @@ from django.db.models.deletion import CASCADE
 from django.db.models.fields import CharField, PositiveIntegerField
 from django.db.models.fields.related import ForeignKey
 
+from pokemon.managers import PokemonManager
+from pokemon.querysets import PokemonQuerySet
+
 
 class NamedModel(Model):
     name = CharField(max_length=255, unique=True)
@@ -20,6 +23,8 @@ class TypeGroup(NamedModel):
 
 class Pokemon(NamedModel):
     number = PositiveIntegerField(unique=True)
+
+    objects = PokemonManager.from_queryset(queryset_class=PokemonQuerySet)()
 
     class Meta:
         indexes: list[Index] = [

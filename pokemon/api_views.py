@@ -1,4 +1,3 @@
-from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import permission_classes
 from rest_framework.generics import (
@@ -128,15 +127,8 @@ class PokemonOfUserTypeListAPIView(ListAPIView):
     serializer_class = PokemonWithTypesSerialier
 
     def get_queryset(self):
-        return (
-            Pokemon.objects.filter(
-                pokemontype__type_group__usertype__user=self.request.user
-            ).distinct().prefetch_related(
-                Prefetch(
-                    lookup="pokemontype_set",
-                    queryset=PokemonType.objects.select_related("type_group"))
-            )
-        )
+        # django_filters could be used if complex filtering is usual in the app."
+        return Pokemon.objects.for_user(user=self.request.user)
 
 
 @permission_classes(permission_classes=[IsAuthenticated])
@@ -169,20 +161,10 @@ class PokemonOfUserTypeRetrieveAPIView(RetrieveAPIView):
     serializer_class = PokemonWithTypesSerialier
 
     def get_object(self):
-        user = self.request.user
-        identifier = self.kwargs["identifier"]
-        if identifier.isdigit():
-            lookup = Q(number=int(identifier))
-        else:
-            lookup = Q(name__iexact=identifier)
-
         return get_object_or_404(
-            Pokemon.objects.filter(
-                lookup, pokemontype__type_group__usertype__user=user
-            ).distinct().prefetch_related(
-                Prefetch(
-                    lookup="pokemontype_set",
-                    queryset=PokemonType.objects.select_related("type_group")
-                )
+            Pokemon.objects.for_user(
+                user=self.request.user
+            ).by_identifier(
+                identifier=self.kwargs.get("identifier", "")
             )
         )

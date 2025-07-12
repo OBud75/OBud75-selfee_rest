@@ -243,7 +243,8 @@ class PokemonListWithFixturesTests(APITestCase):
         self.url = reverse(viewname="pokemon:of-user-type-list")
 
     def test_list_only_allowed_pokemons(self):
-        resp = self.client.get(self.url)
+        with self.assertNumQueries(num=3):
+            resp = self.client.get(self.url)
         self.assertEqual(resp.status_code, HTTP_200_OK)
 
         names = {p["name"] for p in resp.data}
@@ -271,19 +272,22 @@ class PokemonDetailWithFixturesTests(APITestCase):
             viewname="pokemon:of-user-type-retrieve", args=[ident])
 
     def test_retrieve_by_id_allowed(self):
-        resp = self.client.get(self.detail_url("4"))
+        with self.assertNumQueries(num=3):
+            resp = self.client.get(self.detail_url("4"))
         self.assertEqual(resp.status_code, HTTP_200_OK)
         self.assertEqual(resp.data["number"], 4)
         self.assertIn("fire", resp.data["types"])
 
     def test_retrieve_by_name_allowed(self):
-        resp = self.client.get(self.detail_url("Squirtle"))
+        with self.assertNumQueries(num=3):
+            resp = self.client.get(self.detail_url("Squirtle"))
         self.assertEqual(resp.status_code, HTTP_200_OK)
         self.assertEqual(resp.data["name"], "squirtle")
         self.assertIn("water", resp.data["types"])
 
     def test_unallowed_returns_404(self):
-        resp = self.client.get(self.detail_url("1"))
+        with self.assertNumQueries(num=2):
+            resp = self.client.get(self.detail_url("1"))
         self.assertEqual(resp.status_code, HTTP_404_NOT_FOUND)
 
     def test_unauthenticated_returns_401(self):
