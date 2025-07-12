@@ -5,7 +5,7 @@ python3 -m venv venv
 
 pip install -r requirements.txt
 
-echo {} > .env.json
+echo '{"debug": true}' > .env.json
 
 
 ## Synch Database
